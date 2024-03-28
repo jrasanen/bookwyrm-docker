@@ -6,7 +6,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: '0 */6 * * *'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -22,7 +22,7 @@ jobs:
     - name: Fetch the latest Bookwyrm release tag
       id: bookwyrm_release
       run: |
-        LATEST_RELEASE=$(curl -s https://api.github.com/repos/bookwyrm-social/bookwyrm/releases/latest | jq -r .tag_name)
+        LATEST_RELEASE=$(curl -s "https://api.github.com/repos/bookwyrm-social/bookwyrm/tags" | jq -r '.[0].name')
         echo "Latest release tag is $LATEST_RELEASE"
         echo "::set-output name=tag::$LATEST_RELEASE"
       env:
