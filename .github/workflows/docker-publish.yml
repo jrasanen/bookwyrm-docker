@@ -52,10 +52,9 @@ jobs:
       if: steps.dockerhub_check.outputs.tag_exists != '0'
       run: cp Dockerfile bookwyrm/Dockerfile
 
-    - name: Have database connections open for an hour, instead of opening a new one for each request.
+    - name: Copy our settings.py to bookwyrm/settings.py
       if: steps.dockerhub_check.outputs.tag_exists != '0'
-      run: |
-        echo 'CONN_MAX_AGE=3600' >> bookwyrm/bookwyrm/settings.py
+      run: cp settings.py bookwyrm/bookwyrm/settings.py
 
     - name: Set up Docker Buildx
       if: steps.dockerhub_check.outputs.tag_exists != '0'
