@@ -36,6 +36,10 @@ jobs:
           exit 0
         fi
 
+    - name: Check out your repository
+      if: steps.dockerhub_check.outputs.tag_exists != '0'
+      uses: actions/checkout@v4
+
     - name: Check out Bookwyrm repository at the latest tag
       if: steps.dockerhub_check.outputs.tag_exists != '0'
       uses: actions/checkout@v4
